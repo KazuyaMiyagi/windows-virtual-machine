@@ -1,0 +1,43 @@
+#!/bin/sh
+
+# Other VMs is here:
+#  https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/
+
+readonly WIN7_IMAGE_URL="https://az792536.vo.msecnd.net/vms/VMBuild_20150916/Vagrant/IE11/IE11.Win7.Vagrant.zip"
+readonly WIN8_IMAGE_URL="https://az792536.vo.msecnd.net/vms/VMBuild_20150916/Vagrant/IE11/IE11.Win81.Vagrant.zip"
+readonly WIN10_IMAGE_URL="https://az792536.vo.msecnd.net/vms/VMBuild_20190311/Vagrant/MSEdge/MSEdge.Win10.Vagrant.zip"
+
+# script/bootstrap: Resolve all dependencies that the application requires to
+#                   run.
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+if [ -f "Brewfile" ] && [ "$(uname -s)" = "Darwin" ]; then
+    brew bundle check >/dev/null 2>&1  || {
+        echo "==> Installing Homebrew dependencies…"
+            brew bundle
+        }
+fi
+
+if [ ! -e "tmp/IE11.Win7.Vagrant.zip" ]; then
+    echo "==> Downloading IE11.Win7.Vagrant.zip"
+    curl "$WIN7_IMAGE_URL" -o tmp/IE11.Win7.Vagrant.zip
+    unzip -d tmp tmp/IE11.Win7.Vagrant.zip
+    vagrant box add IE11-Win7 "tmp/IE11 - Win7.box"
+fi
+
+if [ ! -e "tmp/IE11.Win8.Vagrant.zip" ]; then
+    echo "==> Downloading IE11.Win8.Vagrant.zip"
+    curl "$WIN8_IMAGE_URL" -o tmp/IE11.Win8.Vagrant.zip
+    unzip -d tmp tmp/IE11.Win8.Vagrant.zip
+    vagrant box add IE11-Win8 "tmp/IE11 - Win81.box"
+fi
+
+if [ ! -e "tmp/MSEdge.Win10.Vagrant.zip" ]; then
+    echo "==> Downloading MSEdge.Win10.Vagrant.zip"
+    curl "$WIN10_IMAGE_URL" -o tmp/MSEdge.Win10.Vagrant.zip
+    unzip -d tmp tmp/MSEdge.Win10.Vagrant.zip
+    vagrant box add MSEdge-Win10 "tmp/MSEdge - Win10.box"
+fi
