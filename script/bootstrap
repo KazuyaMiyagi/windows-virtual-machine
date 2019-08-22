@@ -28,10 +28,10 @@ if [ ! -e "tmp/IE11.Win7.Vagrant.zip" ]; then
     vagrant box add IE11-Win7 "tmp/IE11 - Win7.box"
 fi
 
-if [ ! -e "tmp/IE11.Win8.Vagrant.zip" ]; then
-    echo "==> Downloading IE11.Win8.Vagrant.zip"
-    curl "$WIN8_IMAGE_URL" -o tmp/IE11.Win8.Vagrant.zip
-    unzip -d tmp tmp/IE11.Win8.Vagrant.zip
+if [ ! -e "tmp/IE11.Win81.Vagrant.zip" ]; then
+    echo "==> Downloading IE11.Win81.Vagrant.zip"
+    curl "$WIN8_IMAGE_URL" -o tmp/IE11.Win81.Vagrant.zip
+    unzip -d tmp tmp/IE11.Win81.Vagrant.zip
     vagrant box add IE11-Win8 "tmp/IE11 - Win81.box"
 fi
 
